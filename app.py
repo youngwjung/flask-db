@@ -1,0 +1,30 @@
+from flask import Flask
+from werkzeug.middleware.proxy_fix import ProxyFix
+import json
+from psycopg2 import connect
+
+
+app = Flask(__name__)
+app.wsgi_app = ProxyFix(app.wsgi_app)
+
+with open('db_credentials') as data:
+    db_credentials = json.load(data)
+
+
+@app.route("/")
+def index():
+    conn = connect(
+        dbname='postgres',
+        user=db_credentials['username'],
+        host=db_credentials['host'],
+        password=db_credentials['password']
+    )
+    conn.close()
+    return """
+        <style>body {background-color: green}</style>
+        <h1 style='color:white'>Everything is working fine</h1>
+    """
+
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=80)

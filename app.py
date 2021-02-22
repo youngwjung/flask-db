@@ -24,7 +24,7 @@ def index():
     conn.close()
     return """
         <style>body {background-color: green}</style>
-        <h1 style='color:white'>Everything is working fine</h1>
+        <h1 style='color:black'>Everything is working fine</h1>
     """
 
 

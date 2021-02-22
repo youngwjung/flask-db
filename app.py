@@ -28,5 +28,16 @@ def index():
     """
 
 
+@app.route("/error/")
+def error():
+    conn = connect(
+        dbname='postgres',
+        user=db_credentials['username'],
+        host=db_credentials['host'],
+        password='asdf1234'
+    )
+    return "error"
+
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80)

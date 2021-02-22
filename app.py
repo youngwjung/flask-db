@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from werkzeug.middleware.proxy_fix import ProxyFix
 import json
@@ -7,7 +8,8 @@ from psycopg2 import connect
 app = Flask(__name__)
 app.wsgi_app = ProxyFix(app.wsgi_app)
 
-with open('db_credentials') as data:
+dir = os.path.dirname(__file__)
+with open(os.path.join(dir, 'db_credentials')) as data:
     db_credentials = json.load(data)
 
 
